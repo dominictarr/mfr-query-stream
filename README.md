@@ -8,6 +8,7 @@ Assumes that there is a timestamp property which the query is sorted by.
 
 ``` js
 var QueryStream = require('mfr-query-stream')
+var pull = require('pull-stream')
 
 return QueryStream(
 
@@ -19,7 +20,8 @@ return QueryStream(
     author: id //by a given author.
   }}}],
 
-  api.message.layout, //render the message, function must take a query item and return a html element.
+  //a pull stream that takes messages and outputs html elements.
+  pull.map(api.message.layout),
 
   //a container element to put all the items into.
   h('div.content')
