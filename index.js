@@ -6,10 +6,10 @@ var HyperMoreStream = require('hyperloadmore/stream')
 module.exports =  function stream (read, query, createTransform, content) {
 
   function createStream (opts) {
-    var path = ['query', 0, '$filter', 'timestamp', opts.reverse ?  '$lt' : '$gt']
+    var path = ['query', 0, '$filter', 'value', 'timestamp', opts.reverse ?  '$lt' : '$gt']
     nested.set(opts, path, Date.now())
     return pull(
-      More(read, opts, 'timestamp', path),
+      More(read, opts, ['value', 'timestamp'], path),
       createTransform()
     )
   }
